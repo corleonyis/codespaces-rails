@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root "hello#index"
+  root "tasks#index"
   resources :tasks
 end

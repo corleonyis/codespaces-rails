@@ -24,6 +24,16 @@ class TasksController < ApplicationController
 		redirect_to tasks_path
 	end
 
+	def destroy
+		@task = Task.find(params[:id])
+		@task.destroy
+
+		respond_to do |format|
+			format.html { redirect_to tasks_path, notice: "Task was successfully destroyed.", status: :see_other}
+			format.json { head :no_content }
+		end
+	end
+
 	private
 		def task_params
 			params.require(:task).permit(:title)
