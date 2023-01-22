@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
 	def index
 		require_login
-		@tasks = Task.all
+		@tasks = Task.where(user_id: current_user.id)
 	end
 
 	def new
