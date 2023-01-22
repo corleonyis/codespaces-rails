@@ -6,4 +6,5 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
     validates :password, presence: true, length: { minimum: 6 }
     has_secure_password
+    has_many :tasks, foreign_key: :user_id, dependent: :destroy
 end
