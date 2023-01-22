@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
 	protect_from_forgery
+	before_action :require_login
+	before_action :user_check, {only:[:edit, :update, :destroy, :show]}
 
 	def index
-		require_login
 		@tasks = Task.where(user_id: current_user.id)
 	end
 
@@ -16,17 +17,17 @@ class TasksController < ApplicationController
 	end
 
 	def edit
-		@task = Task.find(params[:id])
+		user_check
 	end
 
 	def update
-		@task = Task.find(params[:id])
+		user_check
 		@task.update(task_params)
 		redirect_to tasks_path
 	end
 
 	def destroy
-		@task = Task.find(params[:id])
+		user_check
 		@task.destroy
 
 		respond_to do |format|
@@ -36,11 +37,18 @@ class TasksController < ApplicationController
 	end
 
 	def show
-		@task = Task.find(params[:id])
+		user_check
 	end
 
 	private
 		def task_params
 			params.require(:task).permit(:title).merge(user_id: current_user.id)
+		end
+
+		def user_check
+			@task = Task.find(params[:id])
+			if @task.user_id != current_user.id
+				redirect_to tasks_path
+			end
 		end
 end
