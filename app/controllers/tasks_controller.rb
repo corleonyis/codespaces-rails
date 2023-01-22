@@ -2,6 +2,7 @@ class TasksController < ApplicationController
 	protect_from_forgery
 
 	def index
+		require_login
 		@tasks = Task.all
 	end
 
@@ -40,6 +41,6 @@ class TasksController < ApplicationController
 
 	private
 		def task_params
-			params.require(:task).permit(:title)
+			params.require(:task).permit(:title).merge(user_id: current_user.id)
 		end
 end
