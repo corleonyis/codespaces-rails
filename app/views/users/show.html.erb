@@ -1,5 +1,11 @@
-<h1>ユーザー情報</h1>
-
+<div class="d-flex mt-3 mb-3">
+	<h1 class="flex-grow-1">ユーザー情報</h1>
+	<div><%= link_to 'ログアウト', logout_path, data:{ turbo_method: :delete } %></div>
+</div>
 <p>メールアドレス：<%= @current_user.email %></p>
-<p><%= link_to 'ログアウト', logout_path, data:{ turbo_method: :delete } %></p>
-<p><%= link_to '登録解除', unsubscribe_path, data: { turbo_method: :delete, turbo_confirm: '本当に登録解除しますか？' } %></p>
+
+<h3 class="mt-5">アカウントの削除</h3>
+<hr>
+<div><%= link_to 'アカウントを削除する', unsubscribe_path,
+         data: { turbo_method: :delete, turbo_confirm: 'アカウントを削除します。よろしいですか？' },
+          class: "btn btn-danger" %></div>

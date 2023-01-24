@@ -1,8 +1,12 @@
-<h1>タスク一覧</h1>
-<table>
+<div class="d-flex mt-3 mb-3">
+	<h1 class="flex-grow-1">タスク一覧</h1>
+	<div><%= link_to 'アカウント', profile_path %></div>
+</div>
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>タスク名</th>
+			<th>完了 / 未完了</th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -11,10 +15,13 @@
 		<% @tasks.each do |task| %>
 			<tr>
 				<td><%= link_to task.title, task_path(task) %></td>
+				<td><%= task.done ? '完了' : '未完了' %></td>
 				<td><%= link_to '編集', edit_task_path(task) %></td>
 				<td><%= link_to '削除', task_path(task), data: { turbo_method: :delete } %></td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
-<%= link_to '追加', new_task_path %>
+<div class="mt-3 mb-3">
+<%= link_to '追加', new_task_path, class: "btn btn-primary" %>
+</div>

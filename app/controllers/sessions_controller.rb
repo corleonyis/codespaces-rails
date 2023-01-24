@@ -8,10 +8,10 @@ class SessionsController < ApplicationController
       user = User.find_by(email: params[:email].downcase)
       if user && user.authenticate(params[:password])
         log_in(user)
-        redirect_to profile_path(user)
+        redirect_to tasks_path
       else
         flash.now[:danger] = 'メールアドレスかパスワードが間違っています。'
-        render 'new'
+        render 'new', status: :unprocessable_entity
       end
     end
   
